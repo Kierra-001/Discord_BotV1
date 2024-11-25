@@ -1,0 +1,3 @@
+# Swoopy_Bot 
+
+This is Discord bot i made years, ago stil dusty but, get the jobs done... 
