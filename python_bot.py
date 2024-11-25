@@ -107,9 +107,9 @@ async def on_member_join(member):
 # On bot ready event
 @bot.event
 async def on_ready():
-    activity = discord.Game("On Development")
-    await bot.change_presence(activity=activity, status=discord.Status.dnd)
+    activity = discord.Game("With Kira-san")
+    await bot.change_presence(activity=activity, status=discord.Status.online)
     print(f"Logged in as {bot.user}")
 
 # Run the bot
-bot.run("Bot_Token")
+bot.run("Discord_Bot_Token")
