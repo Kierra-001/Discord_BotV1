@@ -99,8 +99,8 @@ async def howdoyoulook(ctx):
 # Event for new member joining
 @bot.event
 async def on_member_join(member):
-    if member.guild.id in ["758952958502240276", "724826049438941234"]:
-        channel = discord.utils.get(member.guild.channels, id=823418417734090753)  # Example channel ID
+    if member.guild.id in ["Guild_Channel_1", "Guild_Channel_2"]: #Looking at
+        channel = discord.utils.get(member.guild.channels, id=Guild_Chanel_3)  # Sending message at
         if channel:
             await channel.send(f"Irasshaimasen {member}!")
 
