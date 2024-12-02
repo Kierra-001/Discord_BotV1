@@ -1,6 +1,7 @@
+#Preposition
 import discord
-from discord.ext import commands
 import random
+from discord.ext import commands
 
 # Initialize bot
 intents = discord.Intents.default()
@@ -23,7 +24,7 @@ async def lebefunfacts(ctx):
     funfacts = [
         "My name Lebe came from German name Leberecht maaß",
         "My name came from Z1 destroyer who namesake is Leberecht maaß...",
-        "You know my name actually boys name in Germany..."
+        "You know my name actually boys name in Germany, and Kira makes it works"
     ]
     await ctx.send(random.choice(funfacts))
 
@@ -66,14 +67,41 @@ async def ban(ctx, member: discord.Member = None):
     else:
         await ctx.send("You don't have permission to ban members!")
 
+@bot.command()
+async def secret(ctx):
+    # Replace this with the specific user's Discord ID
+    maker_id = "Kiraschm1dt"  # Example ID, replace with actual
+    allowed_user_ids = ["Server_Booster","Server_Donator"]
+    # Proceed with command
+
+
+    # Check if the command's author is the allowed user
+    if ctx.author.id == maker_id:
+        await ctx.send(f"Konnichiwa Goshujin sama")
+    elif ctx.author.id == allowed_user_ids:
+        await ctx.send(f"Konnichiwa {ctx.author.name}")
+    else:
+        await ctx.send("Konnichiwa")
+
 # Purge command
 @bot.command()
 async def purge(ctx, amount: int):
+    # Check if the user has permission to manage messages
     if ctx.author.guild_permissions.manage_messages:
-        await ctx.channel.purge(limit=amount)
-        await ctx.send(f"Deleted {amount} messages!").delete(delay=5)
+        await ctx.message.delete()
+
+        # Purge the specified number of messages + 1 (to account for the bot's additional deletion)
+        deleted = await ctx.channel.purge(limit=amount + 1)
+
+        # Notify that the action is complete
+        confirmation_message = await ctx.send(f"Action complete: Deleted {len(deleted) - 1} messages!")
+        
+        # Delete the bot's notification message after 30 seconds
+        await confirmation_message.delete(delay=10)
     else:
-        await ctx.send("You don't have permission to manage messages!")
+        # Notify user if they don't have the required permissions
+        warning_message = await ctx.send("You don't have permission to manage messages!")
+        await warning_message.delete(delay=60)  # Delete warning after 1 minute
 
 # Kill command (mentions a user and sends a death message)
 @bot.command()
@@ -87,29 +115,29 @@ async def kill(ctx, member: discord.Member = None):
 @bot.command()
 async def introduction(ctx):
     embed = discord.Embed(title="Konichiwa, Lebe-desu", description="Watashi wa, Kierra-sama no puraibeto meido desu. Yoroshiku ne!")
-    embed.set_author(name="Leberecht maaß", icon_url="https://cdn.glitch.me/41801d65-89c9-479a-99b4-f5e4f529d9cc%2Fthumbnails%2FLeberect%20Mass_20210918153837%20(2).png?1634187729515")
+    embed.set_author(name="Leberecht maaß", icon_url="Image_ID")
     embed.set_footer(text="Prototype_Maid_Swoopy")
     await ctx.send(embed=embed)
 
 @bot.command()
 async def howdoyoulook(ctx):
-    image_url = "https://cdn.glitch.me/41801d65-89c9-479a-99b4-f5e4f529d9cc%2Fthumbnails%2FLeberect%20Mass_20210918153837%20(3).png?1634181689329"
+    image_url = "Image Link"
     await ctx.send(image_url)
 
 # Event for new member joining
 @bot.event
 async def on_member_join(member):
-    if member.guild.id in ["Guild_Channel_1", "Guild_Channel_2"]: #Looking at
-        channel = discord.utils.get(member.guild.channels, id=Guild_Chanel_3)  # Sending message at
+    if member.guild.id in ["Server_ID"]: #
+        channel = discord.utils.get(member.guild.channels, id="Channel_ID")  #Channel ID
         if channel:
             await channel.send(f"Irasshaimasen {member}!")
 
 # On bot ready event
 @bot.event
 async def on_ready():
-    activity = discord.Game("With Kira-san")
-    await bot.change_presence(activity=activity, status=discord.Status.online)
+    activity = discord.Game("On ACTIVE Development")
+    await bot.change_presence(activity=activity, status=discord.Status.do_not_disturb)
     print(f"Logged in as {bot.user}")
 
 # Run the bot
-bot.run("Discord_Bot_Token")
+bot.run("Bot_Token")
